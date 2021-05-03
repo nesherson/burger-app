@@ -1,9 +1,10 @@
+import style from './style.module.css';
 
 const Layout = (props) => {
     return (
     <>
         <div>Toolbar, Sidedrawer, Backdrop</div>
-        <main>
+        <main className={style.content}>
             {props.children}
         </main>
     </>);
