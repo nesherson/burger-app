@@ -1,15 +1,20 @@
-import { useState } from 'react';
 import style from './burger.module.css';
 
 import BurgerIngredient from './burgerIngredient/BurgerIngredient';
 
 const Burger = (props) => {
-    const transformentIngredients = Object.keys(props.ingredients)
+    let transformentIngredients = Object.keys(props.ingredients)
         .map(igKey => {
             return [...Array(props.ingredients[igKey])].map((_, i) => {
                 return <BurgerIngredient key={igKey + 1} type={igKey}/>
             });
-        });
+        }).reduce((arr, el) => {
+            return arr.concat(el);
+        }, []);
+
+        if (transformentIngredients.length === 0) {
+            transformentIngredients = <p>Please start adding ingredients!</p>
+        }
 
     return (
         <div className={style.Burger}>
