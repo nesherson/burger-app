@@ -51,11 +51,18 @@ const BurgerBuilder = () => {
         });
     }
 
+    const disabledInfo = {
+        ...ingredients
+    };
+
+    for (let key in disabledInfo) {
+        disabledInfo[key] = disabledInfo[key] === 0 ? true : false;  
+    }
+
     return (
         <>
             <Burger ingredients={ingredients}/>
-            <div>Total Price: {totalPrice}</div>
-            <BuildControls addIngredient={addIngredientHandler} removeIngredient={removeIngredientHandler}/>
+            <BuildControls price={totalPrice} addIngredient={addIngredientHandler} removeIngredient={removeIngredientHandler} disabledInfo={disabledInfo}/>
         </>
     );
 }
