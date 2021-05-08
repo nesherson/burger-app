@@ -43,7 +43,9 @@ const BurgerBuilder = () => {
     setIngredients(updatedIngredients);
     setTotalPrice((prevState) => {
       const priceAddition = INGREDIENT_PRICES[type];
-      return prevState + priceAddition;
+      const totalPrice = prevState + priceAddition;
+      console.log('totalPrice ==> ', totalPrice);
+      return totalPrice;
     });
     updatePurchasableState(updatedIngredients);
   };
@@ -60,7 +62,8 @@ const BurgerBuilder = () => {
     setIngredients(updatedIngredients);
     setTotalPrice((prevState) => {
       const priceDeduction = INGREDIENT_PRICES[type];
-      return prevState - priceDeduction;
+      const totalPrice = prevState - priceDeduction;
+      return totalPrice;
     });
     updatePurchasableState(updatedIngredients);
   };
@@ -85,7 +88,6 @@ const BurgerBuilder = () => {
     disabledInfo[key] = disabledInfo[key] === 0 ? true : false;
   }
 
-  console.log('Purchasable --> ', purchasable);
   return (
     <>
       <Modal show={purchasing} cancelPurchase={cancelPurchaseHandler}>
@@ -93,6 +95,7 @@ const BurgerBuilder = () => {
           continuePurchase={continuePurchaseHandler}
           cancelPurchase={cancelPurchaseHandler}
           ingredients={ingredients}
+          price={totalPrice}
         />
       </Modal>
       <Burger ingredients={ingredients} />
