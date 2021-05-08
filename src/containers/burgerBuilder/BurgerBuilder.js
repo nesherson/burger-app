@@ -21,7 +21,7 @@ const BurgerBuilder = () => {
   });
   const [totalPrice, setTotalPrice] = useState(BASE_PRICE);
   const [purchasable, setPurchasable] = useState(false);
-  const [pruchasing, setPurchasing] = useState(false);
+  const [purchasing, setPurchasing] = useState(false);
 
   const updatePurchasableState = (ingredients) => {
     const sum = Object.keys(ingredients)
@@ -69,6 +69,10 @@ const BurgerBuilder = () => {
     setPurchasing(true);
   };
 
+  const cancelPurchaseHandler = () => {
+    setPurchasing(false);
+  };
+
   const disabledInfo = {
     ...ingredients,
   };
@@ -80,7 +84,7 @@ const BurgerBuilder = () => {
   console.log('Purchasable --> ', purchasable);
   return (
     <>
-      <Modal show={pruchasing}>
+      <Modal show={purchasing} cancelPurchase={cancelPurchaseHandler}>
         <OrderSummary ingredients={ingredients} />
       </Modal>
       <Burger ingredients={ingredients} />
