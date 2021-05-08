@@ -1,13 +1,14 @@
-import style from './style.module.css';
+import style from './layout.module.css';
+
+import Toolbar from '../navigation/toolbar/Toolbar';
 
 const Layout = (props) => {
-    return (
+  return (
     <>
-        <div>Toolbar, Sidedrawer, Backdrop</div>
-        <main className={style.Content}>
-            {props.children}
-        </main>
-    </>);
-}
+      <Toolbar />
+      <main className={style.Content}>{props.children}</main>
+    </>
+  );
+};
 
 export default Layout;
