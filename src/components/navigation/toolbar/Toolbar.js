@@ -2,11 +2,12 @@ import style from './toolbar.module.css';
 
 import Logo from '../../logo/Logo';
 import NavigationItems from '../navigationItems/NavigationItems';
+import DrawerToggle from '../sideDrawer/drawerToggle/DrawerToggle';
 
-const Toolbar = () => {
+const Toolbar = (props) => {
   return (
     <header className={style.Toolbar}>
-      <div>Menu</div>
+      <DrawerToggle onToggleClick={props.onToggleClick} />
       <Logo height='80%' />
       <nav className={style.DesktopOnly}>
         <NavigationItems />
