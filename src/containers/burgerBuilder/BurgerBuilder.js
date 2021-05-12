@@ -44,7 +44,6 @@ const BurgerBuilder = () => {
     setTotalPrice((prevState) => {
       const priceAddition = INGREDIENT_PRICES[type];
       const totalPrice = prevState + priceAddition;
-      console.log('totalPrice ==> ', totalPrice);
       return totalPrice;
     });
     updatePurchasableState(updatedIngredients);
