@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import axios from '../../axios-orders.js';
+
 import Burger from '../../components/burger/Burger';
 import BuildControls from '../../components/burger/buildControls/BuildControls';
 import Modal from '../../components/UI/modal/Modal';
@@ -76,7 +78,24 @@ const BurgerBuilder = () => {
   };
 
   const continuePurchaseHandler = () => {
-    alert('YOU CONTINUE!');
+    const order = {
+      ingredients: ingredients,
+      price: totalPrice,
+      customer: {
+        name: 'John Doe',
+        address: {
+          street: 'Test street 1',
+          zipCode: '112233',
+          country: 'Belgium',
+        },
+        email: 'john.doe@gmail.com',
+      },
+      deliveryMethod: 'fastest',
+    };
+    axios
+      .post('/orders.json', order)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   const disabledInfo = {
