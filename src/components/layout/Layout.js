@@ -5,7 +5,7 @@ import Toolbar from '../navigation/toolbar/Toolbar';
 import SideDrawer from '../navigation/sideDrawer/SideDrawer';
 
 const Layout = (props) => {
-  const [showSideDrawer, setShowSideDrawer] = useState(true);
+  const [showSideDrawer, setShowSideDrawer] = useState(false);
 
   const handleSideDrawerClose = () => {
     setShowSideDrawer(false);
