@@ -8,6 +8,7 @@ import BuildControls from '../../components/burger/buildControls/BuildControls';
 import Modal from '../../components/UI/modal/Modal';
 import OrderSummary from '../../components/burger/orderSummary/OrderSummary';
 import Spinner from '../../components/UI/spinner/Spinner';
+import { useHistory } from 'react-router';
 
 const BASE_PRICE = 4;
 const INGREDIENT_PRICES = {
@@ -24,6 +25,8 @@ const BurgerBuilder = () => {
   const [purchasing, setPurchasing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     axios
@@ -89,31 +92,32 @@ const BurgerBuilder = () => {
   };
 
   const continuePurchaseHandler = () => {
-    setLoading(true);
-    const order = {
-      ingredients: ingredients,
-      price: totalPrice,
-      customer: {
-        name: 'John Doe',
-        address: {
-          street: 'Test street 1',
-          zipCode: '112233',
-          country: 'Belgium',
-        },
-        email: 'john.doe@gmail.com',
-      },
-      deliveryMethod: 'fastest',
-    };
-    axios
-      .post('/orders.json', order)
-      .then((res) => {
-        setLoading(false);
-        setPurchasing(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setPurchasing(false);
-      });
+    // setLoading(true);
+    // const order = {
+    //   ingredients: ingredients,
+    //   price: totalPrice,
+    //   customer: {
+    //     name: 'John Doe',
+    //     address: {
+    //       street: 'Test street 1',
+    //       zipCode: '112233',
+    //       country: 'Belgium',
+    //     },
+    //     email: 'john.doe@gmail.com',
+    //   },
+    //   deliveryMethod: 'fastest',
+    // };
+    // axios
+    //   .post('/orders.json', order)
+    //   .then((res) => {
+    //     setLoading(false);
+    //     setPurchasing(false);
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     setPurchasing(false);
+    //   });
+    history.push('/checkout');
   };
 
   const disabledInfo = {
