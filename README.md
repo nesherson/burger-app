@@ -1,10 +1,10 @@
 # Burger Builder
 
-### Homepage
+## Homepage
 
 ![alt text](https://github.com/nesherson/burger-app/blob/master/docs/images/screenshot_1.png)
 
-## Make your own burger
+### Make your own burger
 
 App is based on project from React - The Complete Guide course
 
@@ -12,7 +12,7 @@ App is based on project from React - The Complete Guide course
 
 ```
 git clone https://github.com/nesherson/burger-app.git
-cd gitlookup-app
+cd burger-app
 npm install
 
 ```
