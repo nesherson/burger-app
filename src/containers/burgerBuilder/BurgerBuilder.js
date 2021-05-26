@@ -92,7 +92,45 @@ const BurgerBuilder = () => {
   };
 
   const continuePurchaseHandler = () => {
-    history.push('/checkout');
+    // setLoading(true);
+    // const order = {
+    //   ingredients: ingredients,
+    //   price: totalPrice,
+    //   customer: {
+    //     name: 'John Doe',
+    //     address: {
+    //       street: 'Test street 1',
+    //       zipCode: '112233',
+    //       country: 'Belgium',
+    //     },
+    //     email: 'john.doe@gmail.com',
+    //   },
+    //   deliveryMethod: 'fastest',
+    // };
+    // axios
+    //   .post('/orders.json', order)
+    //   .then((res) => {
+    //     setLoading(false);
+    //     setPurchasing(false);
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     setPurchasing(false);
+    //   });
+    const queryParams = [];
+
+    for (let i in ingredients) {
+      queryParams.push(
+        `${encodeURIComponent(i)}=${encodeURIComponent(ingredients[i])}`
+      );
+    }
+
+    const queryString = queryParams.join('&');
+
+    history.push({
+      pathname: '/checkout',
+      search: `?${queryString}`,
+    });
   };
 
   const disabledInfo = {
