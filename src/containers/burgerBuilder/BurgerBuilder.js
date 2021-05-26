@@ -23,7 +23,6 @@ const BurgerBuilder = () => {
   const [totalPrice, setTotalPrice] = useState(BASE_PRICE);
   const [purchasable, setPurchasable] = useState(false);
   const [purchasing, setPurchasing] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const history = useHistory();
@@ -92,31 +91,6 @@ const BurgerBuilder = () => {
   };
 
   const continuePurchaseHandler = () => {
-    // setLoading(true);
-    // const order = {
-    //   ingredients: ingredients,
-    //   price: totalPrice,
-    //   customer: {
-    //     name: 'John Doe',
-    //     address: {
-    //       street: 'Test street 1',
-    //       zipCode: '112233',
-    //       country: 'Belgium',
-    //     },
-    //     email: 'john.doe@gmail.com',
-    //   },
-    //   deliveryMethod: 'fastest',
-    // };
-    // axios
-    //   .post('/orders.json', order)
-    //   .then((res) => {
-    //     setLoading(false);
-    //     setPurchasing(false);
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     setPurchasing(false);
-    //   });
     const queryParams = [];
 
     for (let i in ingredients) {
@@ -124,7 +98,7 @@ const BurgerBuilder = () => {
         `${encodeURIComponent(i)}=${encodeURIComponent(ingredients[i])}`
       );
     }
-
+    queryParams.push(`price=${totalPrice}`);
     const queryString = queryParams.join('&');
 
     history.push({
@@ -166,10 +140,6 @@ const BurgerBuilder = () => {
         price={totalPrice}
       />
     );
-  }
-
-  if (loading) {
-    orderSummary = <Spinner />;
   }
 
   return (

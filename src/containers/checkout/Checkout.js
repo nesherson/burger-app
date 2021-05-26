@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import CheckoutSummary from '../../components/order/checkoutSummary/CheckoutSummary';
+import { Route } from 'react-router-dom';
 
-const Checkout = () => {
-  const [ingredients, setIngredients] = useState();
+import CheckoutSummary from '../../components/order/checkoutSummary/CheckoutSummary';
+import ContactData from './contactData/ContactData';
+
+const Checkout = (props) => {
+  const [ingredients, setIngredients] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
   const history = useHistory();
   const location = useLocation();
 
@@ -14,7 +18,11 @@ const Checkout = () => {
     console.log('location --> ', query);
 
     for (let param of query.entries()) {
-      temp[param[0]] = +param[1];
+      if (param[0] === 'price') {
+        setTotalPrice(+param[1]);
+      } else {
+        temp[param[0]] = +param[1];
+      }
     }
 
     setIngredients(temp);
@@ -28,8 +36,6 @@ const Checkout = () => {
     history.replace('/checkout/contact-data');
   };
 
-  console.log('Checkout --> ', ingredients);
-
   return (
     <div>
       {ingredients ? (
@@ -39,6 +45,16 @@ const Checkout = () => {
           onCheckoutContinue={handleCheckoutContinue}
         />
       ) : null}
+      <Route
+        path={`${props.match.path}/contact-data`}
+        render={(props) => (
+          <ContactData
+            ingredients={ingredients}
+            totalPrice={totalPrice}
+            {...props}
+          />
+        )}
+      />
     </div>
   );
 };
