@@ -92,31 +92,6 @@ const BurgerBuilder = () => {
   };
 
   const continuePurchaseHandler = () => {
-    // setLoading(true);
-    // const order = {
-    //   ingredients: ingredients,
-    //   price: totalPrice,
-    //   customer: {
-    //     name: 'John Doe',
-    //     address: {
-    //       street: 'Test street 1',
-    //       zipCode: '112233',
-    //       country: 'Belgium',
-    //     },
-    //     email: 'john.doe@gmail.com',
-    //   },
-    //   deliveryMethod: 'fastest',
-    // };
-    // axios
-    //   .post('/orders.json', order)
-    //   .then((res) => {
-    //     setLoading(false);
-    //     setPurchasing(false);
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     setPurchasing(false);
-    //   });
     history.push('/checkout');
   };
 
