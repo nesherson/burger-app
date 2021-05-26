@@ -1,7 +1,10 @@
 import { useHistory } from 'react-router';
+import { Route } from 'react-router-dom';
+
+import ContactData from './contactData/ContactData';
 import CheckoutSummary from '../../components/order/checkoutSummary/CheckoutSummary';
 
-const Checkout = () => {
+const Checkout = (props) => {
   const ingredients = {
     salad: 1,
     meat: 1,
@@ -25,6 +28,10 @@ const Checkout = () => {
         ingredients={ingredients}
         onCheckoutCancel={handleCheckoutCancel}
         onCheckoutContinue={handleCheckoutContinue}
+      />
+      <Route
+        path={`${props.match.path}/contact-data`}
+        component={ContactData}
       />
     </div>
   );
