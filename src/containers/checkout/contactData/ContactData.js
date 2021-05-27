@@ -4,6 +4,7 @@ import axios from '../../../axios-orders';
 
 import Button from '../../../components/UI/button/Button';
 import Spinner from '../../../components/UI/spinner/Spinner';
+import Input from '../../../components/UI/input/Input';
 
 const ContactData = (props) => {
   const [name, setName] = useState('');
@@ -41,26 +42,30 @@ const ContactData = (props) => {
 
   let form = (
     <form>
-      <input
-        className={style.Input}
+      <Input
+        inputtype='input'
+        label='Name'
         type='text'
         name='name'
         placeholder='Your Name'
       />
-      <input
-        className={style.Input}
+      <Input
+        inputtype='input'
+        label='Email'
         type='email'
         name='email'
         placeholder='Your Email'
       />
-      <input
-        className={style.Input}
+      <Input
+        inputtype='input'
+        label='Street'
         type='text'
         name='street'
         placeholder='Street'
       />
-      <input
-        className={style.Input}
+      <Input
+        inputtype='input'
+        label='Postal Code '
         type='text'
         name='postalCode'
         placeholder='Postal Code'
