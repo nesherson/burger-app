@@ -3,7 +3,7 @@ import style from './input.module.css';
 const Input = (props) => {
   let inputElement = null;
 
-  switch (props.elementtype) {
+  switch (props.elementType) {
     case 'input':
       inputElement = (
         <input
@@ -20,6 +20,19 @@ const Input = (props) => {
           {...props.elementConfig}
           value={props.value}
         />
+      );
+      break;
+    case 'select':
+      inputElement = (
+        <select className={style.InputElement} value={props.value}>
+          {props.elementConfig.options.map((option) => {
+            return (
+              <option key={option.value} value={option.value}>
+                {option.displayValue}
+              </option>
+            );
+          })}
+        </select>
       );
       break;
     default:
