@@ -3,15 +3,33 @@ import style from './input.module.css';
 const Input = (props) => {
   let inputElement = null;
 
-  switch (props.inputtype) {
+  switch (props.elementtype) {
     case 'input':
-      inputElement = <input className={style.InputElement} {...props} />;
+      inputElement = (
+        <input
+          className={style.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+        />
+      );
       break;
     case 'textarea':
-      inputElement = <textarea className={style.InputElement} {...props} />;
+      inputElement = (
+        <textarea
+          className={style.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+        />
+      );
       break;
     default:
-      inputElement = <input className={style.InputElement} {...props} />;
+      inputElement = (
+        <input
+          className={style.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+        />
+      );
   }
 
   return (

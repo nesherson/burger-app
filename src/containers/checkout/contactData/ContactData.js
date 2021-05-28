@@ -7,9 +7,59 @@ import Spinner from '../../../components/UI/spinner/Spinner';
 import Input from '../../../components/UI/input/Input';
 
 const ContactData = (props) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState({ street: '', postalCode: '' });
+  const [orderForm, setOrderForm] = useState({
+    name: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'text',
+        placeholder: 'Your name',
+      },
+      value: '',
+    },
+    email: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'text',
+        placeholder: 'Your email',
+      },
+      value: '',
+    },
+    street: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'text',
+        placeholder: 'Street',
+      },
+      value: '',
+    },
+    zipCode: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'text',
+        placeholder: 'Zip code',
+      },
+      value: '',
+    },
+    country: {
+      elementType: 'input',
+      elementConfig: {
+        type: 'text',
+        placeholder: 'Country',
+      },
+      value: '',
+    },
+    deliveryMethod: {
+      elementType: 'select',
+      elementConfig: {
+        options: [
+          { value: 'fastest', displayValue: 'Fastest' },
+          { value: 'cheapest', displayValue: 'Cheapest' },
+        ],
+      },
+      value: '',
+    },
+  });
+
   const [loading, setLoading] = useState(false);
 
   const handleOrder = (e) => {
@@ -18,16 +68,6 @@ const ContactData = (props) => {
     const order = {
       ingredients: props.ingredients,
       price: props.totalPrice,
-      customer: {
-        name: name,
-        address: {
-          street: address.street,
-          zipCode: address.postalCode,
-          country: 'Belgium',
-        },
-        email: email,
-      },
-      deliveryMethod: 'fastest',
     };
     axios
       .post('/orders.json', order)
@@ -40,36 +80,27 @@ const ContactData = (props) => {
       });
   };
 
+  const formElementsArray = [];
+
+  for (let key in orderForm) {
+    formElementsArray.push({
+      id: key,
+      config: orderForm[key],
+    });
+  }
+
   let form = (
     <form>
-      <Input
-        inputtype='input'
-        label='Name'
-        type='text'
-        name='name'
-        placeholder='Your Name'
-      />
-      <Input
-        inputtype='input'
-        label='Email'
-        type='email'
-        name='email'
-        placeholder='Your Email'
-      />
-      <Input
-        inputtype='input'
-        label='Street'
-        type='text'
-        name='street'
-        placeholder='Street'
-      />
-      <Input
-        inputtype='input'
-        label='Postal Code '
-        type='text'
-        name='postalCode'
-        placeholder='Postal Code'
-      />
+      {formElementsArray.map((formEl) => {
+        return (
+          <Input
+            key={formEl.id}
+            elementType={formEl.config.elementType}
+            elementConfig={formEl.config.elementConfig}
+            value={formEl.config.value}
+          />
+        );
+      })}
       <Button btnType='Success' onButtonClick={handleOrder}>
         ORDER
       </Button>
