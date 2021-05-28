@@ -80,6 +80,14 @@ const ContactData = (props) => {
       });
   };
 
+  const handleOnChange = (e, inputIdentifier) => {
+    const updatedOrderForm = { ...orderForm };
+    const updatedFormProperty = { ...updatedOrderForm[inputIdentifier] };
+    updatedFormProperty.value = e.target.value;
+    updatedOrderForm[inputIdentifier] = updatedFormProperty;
+    setOrderForm(updatedOrderForm);
+  };
+
   const formElementsArray = [];
 
   for (let key in orderForm) {
@@ -98,6 +106,9 @@ const ContactData = (props) => {
             elementType={formEl.config.elementType}
             elementConfig={formEl.config.elementConfig}
             value={formEl.config.value}
+            onChange={(e) => {
+              handleOnChange(e, formEl.id);
+            }}
           />
         );
       })}

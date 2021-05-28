@@ -10,6 +10,7 @@ const Input = (props) => {
           className={style.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.onChange}
         />
       );
       break;
@@ -19,12 +20,17 @@ const Input = (props) => {
           className={style.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.onChange}
         />
       );
       break;
     case 'select':
       inputElement = (
-        <select className={style.InputElement} value={props.value}>
+        <select
+          className={style.InputElement}
+          value={props.value}
+          onChange={props.onChange}
+        >
           {props.elementConfig.options.map((option) => {
             return (
               <option key={option.value} value={option.value}>
@@ -41,6 +47,7 @@ const Input = (props) => {
           className={style.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.onChange}
         />
       );
   }
