@@ -14,6 +14,11 @@ const ContactData = (props) => {
         type: 'text',
         placeholder: 'Your name',
       },
+      validation: {
+        required: true,
+      },
+      valid: false,
+      touched: false,
       value: '',
     },
     email: {
@@ -22,6 +27,11 @@ const ContactData = (props) => {
         type: 'text',
         placeholder: 'Your email',
       },
+      validation: {
+        required: true,
+      },
+      valid: false,
+      touched: false,
       value: '',
     },
     street: {
@@ -30,6 +40,11 @@ const ContactData = (props) => {
         type: 'text',
         placeholder: 'Street',
       },
+      validation: {
+        required: true,
+      },
+      valid: false,
+      touched: false,
       value: '',
     },
     zipCode: {
@@ -38,6 +53,13 @@ const ContactData = (props) => {
         type: 'text',
         placeholder: 'Zip code',
       },
+      validation: {
+        required: true,
+        minLength: 5,
+        maxLength: 5,
+      },
+      valid: false,
+      touched: false,
       value: '',
     },
     country: {
@@ -46,6 +68,11 @@ const ContactData = (props) => {
         type: 'text',
         placeholder: 'Country',
       },
+      validation: {
+        required: true,
+      },
+      valid: false,
+      touched: false,
       value: '',
     },
     deliveryMethod: {
@@ -56,18 +83,29 @@ const ContactData = (props) => {
           { value: 'cheapest', displayValue: 'Cheapest' },
         ],
       },
-      value: '',
+      validation: {},
+      valid: true,
+      value: 'fastest',
     },
   });
 
+  const [formIsValid, setFormIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleOrder = (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const formData = {};
+
+    for (let key in orderForm) {
+      formData[key] = orderForm[key].value;
+    }
+
     const order = {
       ingredients: props.ingredients,
       price: props.totalPrice,
+      orderData: formData,
     };
     axios
       .post('/orders.json', order)
@@ -84,7 +122,22 @@ const ContactData = (props) => {
     const updatedOrderForm = { ...orderForm };
     const updatedFormProperty = { ...updatedOrderForm[inputIdentifier] };
     updatedFormProperty.value = e.target.value;
+    updatedFormProperty.valid = checkValidity(
+      updatedFormProperty.value,
+      updatedFormProperty.validation
+    );
     updatedOrderForm[inputIdentifier] = updatedFormProperty;
+    updatedOrderForm[inputIdentifier].touched = true;
+
+    let formIsValid = true;
+
+    for (let key in updatedOrderForm) {
+      formIsValid = updatedOrderForm[key].valid && formIsValid;
+    }
+
+    console.log(formIsValid);
+
+    setFormIsValid(formIsValid);
     setOrderForm(updatedOrderForm);
   };
 
@@ -97,8 +150,26 @@ const ContactData = (props) => {
     });
   }
 
+  const checkValidity = (value, rules) => {
+    let isValid = true;
+
+    if (rules.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
+    }
+
+    return isValid;
+  };
+
   let form = (
-    <form>
+    <form onSubmit={handleOrder}>
       {formElementsArray.map((formEl) => {
         return (
           <Input
@@ -106,13 +177,20 @@ const ContactData = (props) => {
             elementType={formEl.config.elementType}
             elementConfig={formEl.config.elementConfig}
             value={formEl.config.value}
+            invalid={!formEl.config.valid}
+            shouldValidate={formEl.config.validation}
+            touched={formEl.config.touched}
             onChange={(e) => {
               handleOnChange(e, formEl.id);
             }}
           />
         );
       })}
-      <Button btnType='Success' onButtonClick={handleOrder}>
+      <Button
+        btnType='Success'
+        onButtonClick={handleOrder}
+        disabled={!formIsValid}
+      >
         ORDER
       </Button>
     </form>
