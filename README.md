@@ -2,7 +2,7 @@
 
 ## Homepage
 
-![alt text](https://github.com/nesherson/burger-app/blob/master/docs/images/screenshot_1.png)
+![alt text](docs/images/screenshot_1.png)
 
 ### Make your own burger
 
